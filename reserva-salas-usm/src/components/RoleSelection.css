@@ -1,0 +1,57 @@
+/* Contenedor principal de la selección de roles */
+.role-selection-container {
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #3a3f47; /* Fondo para el contenedor de botones */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.role-selection-container h2 {
+    color: #61dafb; /* Color de texto para el título */
+    margin-bottom: 30px;
+    font-size: 1.8em;
+}
+
+/* Grupo de botones para la selección de roles */
+.button-group {
+    display: flex;
+    flex-direction: column; /* Botones apilados por defecto */
+    gap: 20px; /* Espacio entre botones */
+    margin-top: 20px;
+    align-items: center; /* Centra los botones horizontalmente */
+}
+
+/* Estilos para cada botón de rol */
+.role-button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 10px; /* Esquinas más redondeadas */
+    border: none;
+    background-color: #61dafb; /* Color principal de React */
+    color: #282c34; /* Texto oscuro */
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    width: 100%; /* Ocupa todo el ancho disponible en columna */
+    max-width: 250px; /* Ancho máximo para los botones */
+    font-weight: bold;
+}
+
+.role-button:hover {
+    background-color: #21a1f1; /* Color más oscuro al pasar el ratón */
+    transform: translateY(-3px); /* Efecto de elevación */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Media queries para pantallas más grandes (escritorio) */
+@media (min-width: 768px) {
+    .button-group {
+        flex-direction: row; /* Botones en fila en pantallas grandes */
+        justify-content: center; /* Centra los botones horizontalmente */
+    }
+
+    .role-button {
+        width: auto; /* Ancho automático para adaptarse al contenido */
+    }
+}
