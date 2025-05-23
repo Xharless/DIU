@@ -21,6 +21,14 @@
     color: #555
 }
 
+.professor-buttons-group {
+    display: flex;
+    flex-direction: column; 
+    gap: 20px;
+    align-items: center; 
+    margin-bottom: 40px; 
+}
+
 /* Estilos para el botón "Volver" */
 .back-button {
     padding: 12px 25px;
