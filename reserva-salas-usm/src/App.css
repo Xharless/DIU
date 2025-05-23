@@ -1,4 +1,4 @@
-/* Estilos globales para el cuerpo de la página */
+
 body {
   margin: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -6,47 +6,56 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #282c34; /* Fondo oscuro similar al de React */
-  color: white; /* Color de texto predeterminado */
+  background-color: #ffffff;
+  color: #333; 
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Asegura que ocupe al menos toda la altura de la ventana */
+  min-height: 100vh; 
 }
 
-/* Estilos para el contenedor principal de la aplicación */
+
+.logo-usm {
+  max-width: 350px; 
+  height: auto; 
+  margin-bottom: 10px; 
+  animation: spin 20s linear infinite; 
+}
+
+
+
 .App {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh; /* Asegura que el contenido se centre verticalmente */
+  min-height: 100vh; 
   width: 100%;
-  max-width: 900px; /* Ancho máximo para el contenido principal */
+  max-width: 900px; 
   padding: 20px;
-  box-sizing: border-box; /* Incluye padding en el ancho total */
+  box-sizing: border-box; 
 }
 
-/* Estilos para el encabezado de la aplicación */
+
 .App-header {
-  background-color: #282c34;
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: rgb(0, 0, 0);
   padding: 20px 0;
   width: 100%;
 }
 
-/* Estilos para el contenido principal (donde se renderizarán las rutas) */
+
 .App-main-content {
-  background-color: #3a3f47; /* Un color ligeramente diferente para el área de contenido */
+  background-color: white;  
   padding: 40px;
   border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  box-shadow:  0 8px 16px rgba(0, 0, 0, 0.5);
   margin-top: 30px;
   width: 100%;
   box-sizing: border-box;

@@ -1,15 +1,15 @@
-/* Contenedor común para todas las páginas de rol */
+
 .page-container {
     padding: 30px;
     border-radius: 10px;
-    background-color: #3a3f47; /* Fondo similar al del contenedor de botones */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: white; 
+    box-shadow: none;
     text-align: center;
-    color: white;
+    color: #333;
 }
 
 .page-container h2 {
-    color: #61dafb; /* Color del título de la página */
+    color: #003366; 
     margin-bottom: 20px;
     font-size: 2em;
 }
@@ -18,6 +18,7 @@
     font-size: 1.1em;
     line-height: 1.6;
     margin-bottom: 30px;
+    color: #555
 }
 
 /* Estilos para el botón "Volver" */
@@ -25,16 +26,16 @@
     padding: 12px 25px;
     font-size: 1em;
     border-radius: 8px;
-    border: 2px solid #61dafb; /* Borde con color de React */
-    background-color: transparent; /* Fondo transparente */
-    color: #61dafb; /* Color del texto */
+    border: 2px solid #003366; 
+    background-color: transparent; 
+    color: #003366; 
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     font-weight: bold;
 }
 
 .back-button:hover {
-    background-color: #61dafb; /* Fondo con color de React al pasar el ratón */
-    color: #282c34; /* Texto oscuro */
-    border-color: #21a1f1; /* Borde más oscuro al pasar el ratón */
+    background-color: #003366;
+    color: white; 
+    border-color: #004080; 
 }

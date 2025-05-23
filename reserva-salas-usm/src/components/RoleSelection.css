@@ -1,57 +1,57 @@
-/* Contenedor principal de la selección de roles */
+
 .role-selection-container {
     padding: 30px;
     border-radius: 10px;
-    background-color: #3a3f47; /* Fondo para el contenedor de botones */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    box-shadow: none;
     text-align: center;
 }
 
 .role-selection-container h2 {
-    color: #61dafb; /* Color de texto para el título */
+    color:#003366; 
     margin-bottom: 30px;
     font-size: 1.8em;
 }
 
-/* Grupo de botones para la selección de roles */
+
 .button-group {
     display: flex;
-    flex-direction: column; /* Botones apilados por defecto */
-    gap: 20px; /* Espacio entre botones */
+    flex-direction: column; 
+    gap: 20px; 
     margin-top: 20px;
-    align-items: center; /* Centra los botones horizontalmente */
+    align-items: center; 
 }
 
-/* Estilos para cada botón de rol */
+
 .role-button {
     padding: 15px 30px;
     font-size: 1.2em;
-    border-radius: 10px; /* Esquinas más redondeadas */
+    border-radius: 10px;
     border: none;
-    background-color: #61dafb; /* Color principal de React */
-    color: #282c34; /* Texto oscuro */
+    background-color: #003366;
+    color: white; 
     cursor: pointer;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    width: 100%; /* Ocupa todo el ancho disponible en columna */
-    max-width: 250px; /* Ancho máximo para los botones */
+    width: 100%; 
+    max-width: 250px;
     font-weight: bold;
 }
 
 .role-button:hover {
-    background-color: #21a1f1; /* Color más oscuro al pasar el ratón */
-    transform: translateY(-3px); /* Efecto de elevación */
+    background-color: #004080;
+    transform: translateY(-3px); 
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Media queries para pantallas más grandes (escritorio) */
+
 @media (min-width: 768px) {
     .button-group {
-        flex-direction: row; /* Botones en fila en pantallas grandes */
-        justify-content: center; /* Centra los botones horizontalmente */
+        flex-direction: row;
+        justify-content: center;
     }
 
     .role-button {
-        width: auto; /* Ancho automático para adaptarse al contenido */
+        width: auto; 
     }
 }
