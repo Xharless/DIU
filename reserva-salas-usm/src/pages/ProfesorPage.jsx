@@ -10,7 +10,7 @@ function ProfessorPage() {
         <div className="page-container">
             <h2>Tipo de Solicitud</h2>
             <p>Seleccione el tipo de sala que desea reservar:</p>
-            <div className="professor-buttons-group"> {/* <--- Nueva clase para agrupar */}
+            <div className="professor-buttons-group"> 
                 <button
                     className="role-button"
                     onClick={() => console.log('Botón Salas Semestrales clickeado')}
