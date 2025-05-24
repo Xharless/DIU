@@ -1,30 +1,41 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './PageStyles.css'; // Estilos comunes de la página
-import '../components/RoleSelection.css'; // Para los estilos de los botones
-import './SemestralRoomsPage.css'; // Estilos específicos para esta página
+import './PageStyles.css'; 
+import '../components/RoleSelection.css'; 
+import './SemestralRoomsPage.css'; 
+
+
+const k_room_ids = [
+    'K201', 'K202', 'K203', 'K204', 'K205', 'K206', 'K207', 
+    'K300', 'K301', 'K302', 'K303', 'K304', 'K305', 'K306', 'K307', 
+    'K402' 
+];
+
 
 // Datos de ejemplo para las salas
 const roomData = {
-    A: Array.from({ length: 10 }, (_, i) => ({ id: `A${String(i + 1).padStart(3, '0')}`, status: i % 3 === 0 ? 'available' : 'occupied' })),
-    B: Array.from({ length: 10 }, (_, i) => ({ id: `B${String(i + 1).padStart(3, '0')}`, status: i % 2 === 0 ? 'available' : 'occupied' })),
-    E: Array.from({ length: 10 }, (_, i) => ({ id: `E${String(i + 1).padStart(3, '0')}`, status: i % 4 === 0 ? 'available' : 'occupied' })),
-    K: Array.from({ length: 10 }, (_, i) => ({ id: `K${String(i + 1).padStart(3, '0')}`, status: i % 5 === 0 ? 'available' : 'occupied' })),
-    F: Array.from({ length: 10 }, (_, i) => ({ id: `F${String(i + 1).padStart(3, '0')}`, status: 'available' })), // Todas disponibles en F por ejemplo
+    A: Array.from({ length: 12 }, (_, i) => ({ id: `A${String(i + 1).padStart(3, '0')}`, status: i % 3 === 0 ? 'available' : 'occupied' })),
+    B: Array.from({ length: 12 }, (_, i) => ({ id: `B${String(i + 1).padStart(3, '0')}`, status: i % 2 === 0 ? 'available' : 'occupied' })),
+    E: Array.from({ length: 5 }, (_, i) => ({ id: `E${String(i + 200).padStart(3, '0')}`, status: i % 4 === 0 ? 'available' : 'occupied' })),
+    K: k_room_ids.map(id => ({
+        id: id,
+        status: (id === 'K301' || id === 'K402') ? 'occupied' : 'available' 
+    })),
+    F: Array.from({ length: 10 }, (_, i) => ({ id: `F${String(i + 401).padStart(3, '0')}`, status: 'available' })), 
 };
 
 function SemestralRoomsPage() {
     const navigate = useNavigate();
-    const [selectedBlock, setSelectedBlock] = useState(null); // Estado para el bloque seleccionado (A, B, E, K, F)
-    const [selectedRoom, setSelectedRoom] = useState(null); // Estado para la sala seleccionada (para mostrar detalles/formulario)
+    const [selectedBlock, setSelectedBlock] = useState(null); 
+    const [selectedRoom, setSelectedRoom] = useState(null); 
 
     const blocks = ['A', 'B', 'E', 'K', 'F'];
 
     const handleRoomClick = (room) => {
         setSelectedRoom(room);
         console.log(`Sala ${room.id} clickeada. Estado: ${room.status}`);
-        // Aquí podrías abrir un modal o renderizar un formulario de reserva/detalles
+        
     };
 
     const closeRoomDetails = () => {
@@ -35,7 +46,7 @@ function SemestralRoomsPage() {
         <div className="page-container">
             <h2>Disponibilidad de Salas Semestrales</h2>
 
-            {/* 1. Selector de Bloques */}
+            {/* Bloques de salas */}
             <p>Seleccione un bloque para ver sus salas:</p>
             <div className="block-selection-group">
                 {blocks.map(block => (
@@ -49,7 +60,7 @@ function SemestralRoomsPage() {
                 ))}
             </div>
 
-            {/* 2. Visualización de Salas (condicional) */}
+            
             {selectedBlock && (
                 <div className="rooms-list-container">
                     <h3>Salas del Bloque {selectedBlock}</h3>
@@ -70,7 +81,7 @@ function SemestralRoomsPage() {
                 </div>
             )}
 
-            {/* 3. Detalles/Formulario de Sala (Modal/Overlay) */}
+            {/* Formulario de Sala */}
             {selectedRoom && (
                 <div className="room-details-overlay">
                     <div className="room-details-content">
@@ -79,7 +90,7 @@ function SemestralRoomsPage() {
                         {selectedRoom.status === 'available' ? (
                             <div>
                                 <p>Esta sala está disponible para reserva.</p>
-                                {/* Aquí iría un formulario de reserva más elaborado */}
+                                {/* Reserva de las salas (ver con el dani que haremos aqui) */}
                                 <button className="reserve-button" onClick={() => alert(`Reservando sala ${selectedRoom.id}`)}>Reservar</button>
                             </div>
                         ) : (
@@ -93,7 +104,7 @@ function SemestralRoomsPage() {
                 </div>
             )}
 
-            <button className="back-button" onClick={() => navigate(-1)}> {/* navigate(-1) vuelve a la página anterior */}
+            <button className="back-button" onClick={() => navigate(-1)}> 
                 Volver
             </button>
         </div>
