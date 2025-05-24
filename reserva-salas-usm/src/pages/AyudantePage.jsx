@@ -5,6 +5,12 @@ import '../components/RoleSelection.css';
 
 function AssistantPage() {
     const navigate = useNavigate();
+    
+    const handleSemestralRoomsClick = () => {
+        navigate('/assistant/semestral-rooms'); 
+    };
+
+    
 
     return (
         <div className="page-container">
@@ -13,7 +19,7 @@ function AssistantPage() {
             <div className="professor-buttons-group"> 
                 <button
                     className="role-button"
-                    onClick={() => console.log('Botón Salas Semestrales clickeado')}
+                    onClick={handleSemestralRoomsClick}
                 >
                     Salas Semestrales
                 </button>

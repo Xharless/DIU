@@ -4,6 +4,7 @@ import RoleSelection from './components/RoleSelection';
 import AdminPage from './pages/AdminPage';
 import ProfesorPage from './pages/ProfesorPage';
 import AyudantePage from './pages/AyudantePage';
+import SemestralRoomsPage from './pages/SemestralRoomsPage';
 import './App.css'; 
 
 
@@ -23,6 +24,8 @@ function App() {
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/professor" element={<ProfesorPage />} />
             <Route path="/assistant" element={<AyudantePage />} />
+            <Route path="/professor/semestral-rooms" element={<SemestralRoomsPage />} />
+            <Route path="/assistant/semestral-rooms" element={<SemestralRoomsPage />} />
           </Routes>
         </main>
       </BrowserRouter>
