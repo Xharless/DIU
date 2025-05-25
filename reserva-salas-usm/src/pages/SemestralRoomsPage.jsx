@@ -13,16 +13,45 @@ const k_room_ids = [
 ];
 
 
-// Datos de ejemplo para las salas
+// Datos de ejemplo para las salas, los maintenance son del tipo "arreglar cosas electricas o de funcionamiento", 
+// mientras que other son reparaciones a las salas
 const roomData = {
-    A: Array.from({ length: 12 }, (_, i) => ({ id: `A${String(i + 1).padStart(3, '0')}`, status: i % 3 === 0 ? 'available' : 'occupied' })),
-    B: Array.from({ length: 12 }, (_, i) => ({ id: `B${String(i + 1).padStart(3, '0')}`, status: i % 2 === 0 ? 'available' : 'occupied' })),
-    E: Array.from({ length: 5 }, (_, i) => ({ id: `E${String(i + 200).padStart(3, '0')}`, status: i % 4 === 0 ? 'available' : 'occupied' })),
-    K: k_room_ids.map(id => ({
-        id: id,
-        status: (id === 'K301' || id === 'K402') ? 'occupied' : 'available' 
+    A: Array.from({ length: 12 }, (_, i) => ({ 
+        id: `A${String(i + 1).padStart(3, '0')}`, 
+        status: i % 3 === 0 ? 'available' : 'occupied',
+        capacity: 20 + i * 2,
+        maintenanceIssues: i === 1 ? 'Proyector en mantención' : null,
+        otherIssues: i === 4 ? 'No tiene calefacción' : null,
     })),
-    F: Array.from({ length: 10 }, (_, i) => ({ id: `F${String(i + 401).padStart(3, '0')}`, status: 'available' })), 
+    B: Array.from({ length: 12 }, (_, i) => ({ 
+        id: `B${String(i + 1).padStart(3, '0')}`, 
+        status: i % 2 === 0 ? 'available' : 'occupied', 
+        capacity: 30 + i * 3,
+        maintenanceIssues: i === 0 ? 'Falla de audio' : null,
+        otherIssues: null,
+    })),
+    E: Array.from({ length: 5 }, (_, i) => ({ 
+        id: `E${String(i + 200).padStart(3, '0')}`, 
+        status: i % 4 === 0 ? 'available' : 'occupied', 
+        capacity: 25 + i * 4,
+        maintenanceIssues: null,
+        otherIssues: i === 7 ? 'Sillas rotas' : null,
+    })),
+
+    K: k_room_ids.map((id, index) => ({
+        id: id,
+        status: (id === 'K301' || id === 'K402') ? 'occupied' : 'available' ,
+        capacity: 25 + index * 2,
+        maintenanceIssues: (id === 'K203' || id === 'K305') ? 'Falla de audio' : null,
+        otherIssues: (id === 'K402') ? 'Filtración de agua' : null,
+    })),
+    F: Array.from({ length: 10 }, (_, i) => ({ 
+        id: `F${String(i + 401).padStart(3, '0')}`, 
+        status: 'available', 
+        capacity: 40 + i * 5,
+        maintenanceIssues: i === 2 ? 'Proyector en mantención' : null,
+        otherIssues: i === 3 ? 'Ventanas no cierran': null,
+    })), 
 };
 
 function SemestralRoomsPage() {
@@ -72,6 +101,17 @@ function SemestralRoomsPage() {
                                 onClick={() => handleRoomClick(room)}
                             >
                                 <span className="room-id">{room.id}</span>
+                                <span className="room-capacity">Capacidad: {room.capacity}</span>
+                                {room.maintenanceIssues && (
+                                    <span className="room-issue maintenance">
+                                        <span role="img" aria-label="wrench-emoji">🔧</span>
+                                    </span>
+                                )}
+                                {room.otherIssues && (
+                                    <span className="room-issue other">
+                                        <span role="img" aria-label="warning-emoji">⚠️</span>
+                                    </span>
+                                )}
                                 <span className="room-status-text">
                                     {room.status === 'available' ? 'Disponible' : 'Ocupada'}
                                 </span>
@@ -87,6 +127,19 @@ function SemestralRoomsPage() {
                     <div className="room-details-content">
                         <h3>Detalles de la Sala {selectedRoom.id}</h3>
                         <p>Estado: <span className={`status-text ${selectedRoom.status}`}>{selectedRoom.status === 'available' ? 'Disponible' : 'Ocupada'}</span></p>
+                        <p>Capacidad: <strong>{selectedRoom.capacity} personas</strong></p>
+                        {selectedRoom.maintenanceIssues && (
+                            <p className="issue-detail maintenance-detail"> 
+                                <span role="img" aria-label="wrench-emoji">🔧</span> <strong>En Mantención:</strong>{selectedRoom.maintenanceIssues}
+                            </p>
+                        )}
+                        {selectedRoom.otherIssues && (
+                            <p className="issue-detail other-issue-detail">
+                                <span role="img" aria-label="warning-emoji">⚠️</span> <strong>Falla/Problema:</strong>{selectedRoom.otherIssues}
+                            </p>
+                        )}
+                        
+                        
                         {selectedRoom.status === 'available' ? (
                             <div>
                                 <p>Esta sala está disponible para reserva.</p>

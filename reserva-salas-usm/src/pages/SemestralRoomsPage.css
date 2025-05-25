@@ -179,3 +179,61 @@
 .close-button:hover {
     background-color: #fb3d3d;
 }
+
+.room-card{
+    min-height: 100px;
+}
+
+.room-card .room-capacity {
+    font-size: 0.85em;
+    color: #666; 
+    margin-bottom: 8px;
+}
+
+.room-issue {
+    font-size: 1.2em;
+    margin: 2px 0; 
+    padding: 2px 5px;
+    border-radius: 4px;
+    line-height: 1; 
+    display: inline-block; 
+}
+
+.room-issue.maintenance {
+    background-color: #ffc107;
+    color: #333; 
+}
+
+.room-issue.other {
+    background-color: #fd7e14;
+    color: white; 
+}
+
+.room-details-content strong {
+    color: #003366;
+}
+
+
+.issue-detail {
+    background-color: #f8d7da; 
+    color: #721c24; 
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 15px;
+    font-size: 0.95em;
+    display: flex; 
+    align-items: center;
+    gap: 8px; 
+}
+
+.issue-detail.maintenance-detail {
+    background-color: #fff3cd;
+    color: #856404; 
+    border-color: #ffeeba;
+}
+
+.issue-detail span[role="img"] {
+    font-size: 1.2em;
+    flex-shrink: 0; 
+}
