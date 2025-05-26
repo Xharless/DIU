@@ -212,7 +212,48 @@
 .room-details-content strong {
     color: #003366;
 }
+.view-schedule-button {
+    background-color: #003366; 
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-top: auto;
+    transition: background-color 0.3s ease;
+}
+.view-schedule-button:hover {
+    background-color: #004080; 
+}
+.schedules-section {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #eee; 
+    text-align: left; 
+}
 
+.schedules-section h4 {
+    color: #003366;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.schedules-section ul {
+    list-style: none; 
+    padding: 0;
+    margin: 0;
+}
+
+.schedules-section li {
+    background-color: #f0f8ff; 
+    border: 1px solid #e0f0ff;
+    padding: 8px 12px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    font-size: 0.95em;
+    color: #333;
+}
 
 .issue-detail {
     background-color: #f8d7da; 
@@ -236,4 +277,10 @@
 .issue-detail span[role="img"] {
     font-size: 1.2em;
     flex-shrink: 0; 
+}
+
+.reserve-button, .close-button {
+    margin-top: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
 }

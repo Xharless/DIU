@@ -6,6 +6,17 @@ import '../components/RoleSelection.css';
 import './SemestralRoomsPage.css'; 
 
 
+const standardTimeSlots = [
+    { label: '1-2', start: 1, end: 2},
+    { label: '3-4', start: 3, end: 4},
+    { label: '5-6', start: 5, end: 6},
+    { label: '7-8', start: 7, end: 8},
+    { label: '9-10', start: 9, end: 10},
+    { label: '11-12', start: 11, end: 12},
+    { label: '13-14', start: 13, end: 14}
+]
+
+
 const k_room_ids = [
     'K201', 'K202', 'K203', 'K204', 'K205', 'K206', 'K207', 
     'K300', 'K301', 'K302', 'K303', 'K304', 'K305', 'K306', 'K307', 
@@ -22,6 +33,8 @@ const roomData = {
         capacity: 20 + i * 2,
         maintenanceIssues: i === 1 ? 'Proyector en mantención' : null,
         otherIssues: i === 4 ? 'No tiene calefacción' : null,
+        schedules: i === 0 ? [] : (i === 1 ? [{ start: 3, end: 4 }] :
+                (i === 2 ? [{ start: 5, end: 6 }, { start: 9, end: 10 }] : [])),
     })),
     B: Array.from({ length: 12 }, (_, i) => ({ 
         id: `B${String(i + 1).padStart(3, '0')}`, 
@@ -29,6 +42,7 @@ const roomData = {
         capacity: 30 + i * 3,
         maintenanceIssues: i === 0 ? 'Falla de audio' : null,
         otherIssues: null,
+        schedules: i === 0 ? [{ start: 7, end: 8 }] : [],
     })),
     E: Array.from({ length: 5 }, (_, i) => ({ 
         id: `E${String(i + 200).padStart(3, '0')}`, 
@@ -36,6 +50,7 @@ const roomData = {
         capacity: 25 + i * 4,
         maintenanceIssues: null,
         otherIssues: i === 7 ? 'Sillas rotas' : null,
+        schedules: i === 1 ? [{ start: 5, end: 7 }] : [],
     })),
 
     K: k_room_ids.map((id, index) => ({
@@ -44,6 +59,7 @@ const roomData = {
         capacity: 25 + index * 2,
         maintenanceIssues: (id === 'K203' || id === 'K305') ? 'Falla de audio' : null,
         otherIssues: (id === 'K402') ? 'Filtración de agua' : null,
+        schedules: (id === 'K301') ? [{ start: 5, end: 6 }] : (id === 'K402') ? [{ start: 1, end: 2 }] : [],
     })),
     F: Array.from({ length: 10 }, (_, i) => ({ 
         id: `F${String(i + 401).padStart(3, '0')}`, 
@@ -51,6 +67,7 @@ const roomData = {
         capacity: 40 + i * 5,
         maintenanceIssues: i === 2 ? 'Proyector en mantención' : null,
         otherIssues: i === 3 ? 'Ventanas no cierran': null,
+        schedules: [],
     })), 
 };
 
@@ -71,6 +88,17 @@ function SemestralRoomsPage() {
         setSelectedRoom(null);
     };
 
+    const handleRequestSlot = (room, timeSlot) => {
+        alert(`Solicitando sala ${room.id}, Bloque ${timeSlot.label}.`);    
+    };
+
+    const isSlotOccupied = (roomSchedules, slotStart, slotEnd) => {
+        return roomSchedules.some(schedule => {
+            const reservedStart = schedule.start;
+            const reservedEnd = schedule.end;
+            return slotStart < reservedEnd && reservedStart < slotEnd;
+        });
+    };
     return (
         <div className="page-container">
             <h2>Disponibilidad de Salas Semestrales</h2>
@@ -112,9 +140,12 @@ function SemestralRoomsPage() {
                                         <span role="img" aria-label="warning-emoji">⚠️</span>
                                     </span>
                                 )}
-                                <span className="room-status-text">
-                                    {room.status === 'available' ? 'Disponible' : 'Ocupada'}
-                                </span>
+                                <button
+                                    className="view-schedule-button"
+                                    onClick={() => handleRoomClick(room)} 
+                                >
+                                    Ver Horarios
+                                </button>
                             </div>
                         ))}
                     </div>
@@ -125,7 +156,7 @@ function SemestralRoomsPage() {
             {selectedRoom && (
                 <div className="room-details-overlay">
                     <div className="room-details-content">
-                        <h3>Detalles de la Sala {selectedRoom.id}</h3>
+                        <h3>Horarios y Solicitud para la Sala {selectedRoom.id}</h3>
                         <p>Estado: <span className={`status-text ${selectedRoom.status}`}>{selectedRoom.status === 'available' ? 'Disponible' : 'Ocupada'}</span></p>
                         <p>Capacidad: <strong>{selectedRoom.capacity} personas</strong></p>
                         {selectedRoom.maintenanceIssues && (
@@ -139,19 +170,45 @@ function SemestralRoomsPage() {
                             </p>
                         )}
                         
-                        
-                        {selectedRoom.status === 'available' ? (
-                            <div>
-                                <p>Esta sala está disponible para reserva.</p>
-                                {/* Reserva de las salas (ver con el dani que haremos aqui) */}
-                                <button className="reserve-button" onClick={() => alert(`Reservando sala ${selectedRoom.id}`)}>Reservar</button>
-                            </div>
-                        ) : (
-                            <div>
-                                <p>Esta sala está actualmente ocupada.</p>
-                                <p>Detalles (ejemplo): Profesor X, Curso Y, de 10:00 a 12:00.</p>
-                            </div>
-                        )}
+                        <div className="schedules-table-container">
+                            <h4>Disponibilidad por Bloque:</h4>
+                            <table className="schedules-table">
+                                <thead>
+                                    <tr>
+                                        <th>Bloque</th>
+                                        <th>Estado</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {standardTimeSlots.map((slot, index) => {
+                                        const isOccupied = isSlotOccupied(selectedRoom.schedules, slot.start, slot.end);
+                                        return (
+                                            <tr key={index} className={isOccupied ? 'occupied-row' : 'available-row'}>
+                                                <td>{slot.label}</td>
+                                                <td>
+                                                    <span className={`status-text ${isOccupied ? 'occupied' : 'available'}`}>
+                                                        {isOccupied ? 'Ocupado' : 'Libre'}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    {!isOccupied ? (
+                                                        <button
+                                                            className="request-slot-button"
+                                                            onClick={() => handleRequestSlot(selectedRoom, slot)}
+                                                        >
+                                                            Solicitar
+                                                        </button>
+                                                    ) : (
+                                                        <button className="view-details-button" disabled>Ver Detalles</button>
+                                                    )}
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
                         <button className="close-button" onClick={closeRoomDetails}>Cerrar</button>
                     </div>
                 </div>
