@@ -29,7 +29,6 @@ const k_room_ids = [
 const roomData = {
     A: Array.from({ length: 12 }, (_, i) => ({ 
         id: `A${String(i + 1).padStart(3, '0')}`, 
-        status: i % 3 === 0 ? 'available' : 'occupied',
         capacity: 20 + i * 2,
         maintenanceIssues: i === 1 ? 'Proyector en mantención' : null,
         otherIssues: i === 4 ? 'No tiene calefacción' : null,
@@ -37,8 +36,7 @@ const roomData = {
                 (i === 2 ? [{ start: 5, end: 6 }, { start: 9, end: 10 }] : [])),
     })),
     B: Array.from({ length: 12 }, (_, i) => ({ 
-        id: `B${String(i + 1).padStart(3, '0')}`, 
-        status: i % 2 === 0 ? 'available' : 'occupied', 
+        id: `B${String(i + 1).padStart(3, '0')}`,  
         capacity: 30 + i * 3,
         maintenanceIssues: i === 0 ? 'Falla de audio' : null,
         otherIssues: null,
@@ -46,7 +44,6 @@ const roomData = {
     })),
     E: Array.from({ length: 5 }, (_, i) => ({ 
         id: `E${String(i + 200).padStart(3, '0')}`, 
-        status: i % 4 === 0 ? 'available' : 'occupied', 
         capacity: 25 + i * 4,
         maintenanceIssues: null,
         otherIssues: i === 7 ? 'Sillas rotas' : null,
@@ -55,15 +52,13 @@ const roomData = {
 
     K: k_room_ids.map((id, index) => ({
         id: id,
-        status: (id === 'K301' || id === 'K402') ? 'occupied' : 'available' ,
         capacity: 25 + index * 2,
         maintenanceIssues: (id === 'K203' || id === 'K305') ? 'Falla de audio' : null,
         otherIssues: (id === 'K402') ? 'Filtración de agua' : null,
         schedules: (id === 'K301') ? [{ start: 5, end: 6 }] : (id === 'K402') ? [{ start: 1, end: 2 }] : [],
     })),
     F: Array.from({ length: 10 }, (_, i) => ({ 
-        id: `F${String(i + 401).padStart(3, '0')}`, 
-        status: 'available', 
+        id: `F${String(i + 401).padStart(3, '0')}`,  
         capacity: 40 + i * 5,
         maintenanceIssues: i === 2 ? 'Proyector en mantención' : null,
         otherIssues: i === 3 ? 'Ventanas no cierran': null,
@@ -80,7 +75,7 @@ function SemestralRoomsPage() {
 
     const handleRoomClick = (room) => {
         setSelectedRoom(room);
-        console.log(`Sala ${room.id} clickeada. Estado: ${room.status}`);
+        console.log(`Sala ${room.id} clickeada.`);
         
     };
 
@@ -125,7 +120,7 @@ function SemestralRoomsPage() {
                         {roomData[selectedBlock].map(room => (
                             <div
                                 key={room.id}
-                                className={`room-card ${room.status}`}
+                                className={`room-card`}
                                 onClick={() => handleRoomClick(room)}
                             >
                                 <span className="room-id">{room.id}</span>
@@ -157,7 +152,6 @@ function SemestralRoomsPage() {
                 <div className="room-details-overlay">
                     <div className="room-details-content">
                         <h3>Horarios y Solicitud para la Sala {selectedRoom.id}</h3>
-                        <p>Estado: <span className={`status-text ${selectedRoom.status}`}>{selectedRoom.status === 'available' ? 'Disponible' : 'Ocupada'}</span></p>
                         <p>Capacidad: <strong>{selectedRoom.capacity} personas</strong></p>
                         {selectedRoom.maintenanceIssues && (
                             <p className="issue-detail maintenance-detail"> 
