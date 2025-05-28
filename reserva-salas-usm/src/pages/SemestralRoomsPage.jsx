@@ -99,7 +99,7 @@ function SemestralRoomsPage() {
             <h2>Disponibilidad de Salas Semestrales</h2>
 
             {/* Bloques de salas */}
-            <p>Seleccione un bloque para ver sus salas:</p>
+            <p>Seleccione un edificio para ver sus salas:</p>
             <div className="block-selection-group">
                 {blocks.map(block => (
                     <button
@@ -107,7 +107,7 @@ function SemestralRoomsPage() {
                         className={`block-button ${selectedBlock === block ? 'active' : ''}`}
                         onClick={() => setSelectedBlock(block)}
                     >
-                        Bloque {block}
+                        Edificio {block}
                     </button>
                 ))}
             </div>
@@ -115,7 +115,7 @@ function SemestralRoomsPage() {
             
             {selectedBlock && (
                 <div className="rooms-list-container">
-                    <h3>Salas del Bloque {selectedBlock}</h3>
+                    <h3>Salas del Edificio {selectedBlock}</h3>
                     <div className="rooms-grid">
                         {roomData[selectedBlock].map(room => (
                             <div
