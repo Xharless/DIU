@@ -86,7 +86,13 @@
     color: white; 
 }
 
+.room-card.border-maintenance {
+    border: 2px solid #ff9800;
+}
 
+.room-card.border-other {
+    border: 2px solid #f44336;
+}
 
 .room-card.available .room-status-text {
     background-color: #28a745;

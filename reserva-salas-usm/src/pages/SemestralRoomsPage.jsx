@@ -120,7 +120,10 @@ function SemestralRoomsPage() {
                         {roomData[selectedBlock].map(room => (
                             <div
                                 key={room.id}
-                                className={`room-card`}
+                                className={`room-card ${
+                                    room.maintenanceIssues ? 'border-maintenance' :
+                                    room.otherIssues ? 'border-other' : ''
+                                }`}
                                 onClick={() => handleRoomClick(room)}
                             >
                                 <span className="room-id">{room.id}</span>
