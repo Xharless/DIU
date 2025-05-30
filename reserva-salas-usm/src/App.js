@@ -5,6 +5,7 @@ import AdminPage from './pages/AdminPage';
 import ProfesorPage from './pages/ProfesorPage';
 import AyudantePage from './pages/AyudantePage';
 import SemestralRoomsPage from './pages/SemestralRoomsPage';
+import TestRoomsPage from './pages/TestRoomsPage';
 import './App.css'; 
 
 
@@ -25,6 +26,7 @@ function App() {
             <Route path="/professor" element={<ProfesorPage />} />
             <Route path="/assistant" element={<AyudantePage />} />
             <Route path="/professor/semestral-rooms" element={<SemestralRoomsPage />} />
+            <Route path="/professor/test-rooms" element={<TestRoomsPage />} />
             <Route path="/assistant/semestral-rooms" element={<SemestralRoomsPage />} />
           </Routes>
         </main>
