@@ -8,7 +8,8 @@
 }
 
 .role-selection-container h2 {
-    color:#003366; 
+    color:#003366;
+    margin-top: 0;
     margin-bottom: 30px;
     font-size: 1.8em;
 }

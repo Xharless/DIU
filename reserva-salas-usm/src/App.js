@@ -6,6 +6,7 @@ import ProfesorPage from './pages/ProfesorPage';
 import AyudantePage from './pages/AyudantePage';
 import SemestralRoomsPage from './pages/SemestralRoomsPage';
 import TestRoomsPage from './pages/TestRoomsPage';
+import AvailableRooms from './pages/AvailableRooms';
 import './App.css'; 
 
 
@@ -15,8 +16,13 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <header className="App-header">
-          <img src="/logo-usm.png" alt="Logo USM" className="logo-usm" />
-          <h1>Sistema de Reserva de Salas USM</h1>
+          <div className='logo-container'>
+            <a href='/'>
+              <img src="/logo-usm.png" alt="Logo USM" className="logo-usm" />
+            </a>
+          </div>
+          
+          <h1 className='app-title'>Sistema de Reserva de Salas USM</h1>
         </header>
         <main className="App-main-content">
           <Routes>
@@ -27,6 +33,7 @@ function App() {
             <Route path="/assistant" element={<AyudantePage />} />
             <Route path="/professor/semestral-rooms" element={<SemestralRoomsPage />} />
             <Route path="/professor/test-rooms" element={<TestRoomsPage />} />
+            <Route path="/professor/test-rooms/availability" element={<AvailableRooms />} />
             <Route path="/assistant/semestral-rooms" element={<SemestralRoomsPage />} />
           </Routes>
         </main>
