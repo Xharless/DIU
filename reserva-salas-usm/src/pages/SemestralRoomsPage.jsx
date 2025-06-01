@@ -207,7 +207,8 @@ function SemestralRoomsPage() {
     const [selectedRoom, setSelectedRoom] = useState(null); 
     const [selectedDay, setSelectedDay] = useState('Lunes');
     const [showRequestSuccessModal, setShowRequestSuccessModal] = useState(false);
-    
+    const [allRoomData, setAllRoomData] = useState(roomData);
+
     const blocks = ['A', 'B', 'E', 'K', 'F'];
     const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
 
@@ -223,9 +224,24 @@ function SemestralRoomsPage() {
     };
 
     const handleRequestSlot = (room, timeSlot, day) => {
-        console.log(`Solicitando sala ${room.id}, Bloque ${timeSlot.label} para el día ${day}.`);
-        setShowRequestSuccessModal(true); 
-};
+        console.log(`Simulando solicitud para sala ${room.id}, Bloque ${timeSlot.label} para el día ${day}.`);
+        const newAllRoomData = { ...allRoomData }; 
+        const buildingRooms = [...newAllRoomData[selectedBlock]];
+        const roomIndex = buildingRooms.findIndex(r => r.id === room.id);
+        if (roomIndex !== -1) {
+            const updatedRoom = { ...buildingRooms[roomIndex] };
+            const updatedDisponibilidadPorDia = { ...updatedRoom.disponibilidadPorDia };
+            const currentDaySchedules = [...(updatedDisponibilidadPorDia[day] || [])]; 
+            currentDaySchedules.push({ start: timeSlot.start, end: timeSlot.end }); 
+            updatedDisponibilidadPorDia[day] = currentDaySchedules; 
+            updatedRoom.disponibilidadPorDia = updatedDisponibilidadPorDia;
+            buildingRooms[roomIndex] = updatedRoom;
+            newAllRoomData[selectedBlock] = buildingRooms;
+            setAllRoomData(newAllRoomData);
+            setSelectedRoom(updatedRoom);
+        }
+        setShowRequestSuccessModal(true);
+    };
 
     const isSlotOccupied = (roomSchedulesForDay, slotStart, slotEnd) => {
         return roomSchedulesForDay.some(schedule => {
@@ -258,7 +274,7 @@ function SemestralRoomsPage() {
                 <div className="rooms-list-container">
                     <h3>Salas del Edificio {selectedBlock}</h3>
                     <div className="rooms-grid">
-                        {roomData[selectedBlock].map(room => (
+                        {allRoomData[selectedBlock].map(room => (
                             <div
                                 key={room.id}
                                 className={`room-card ${
