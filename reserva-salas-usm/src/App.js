@@ -18,7 +18,7 @@ function App() {
         <header className="App-header">
           <div className='logo-container'>
             <a href='/'>
-              <img src="/logo-usm.png" alt="Logo USM" className="logo-usm" />
+              <img src="/logo2USM.png" alt="Logo USM" className="logo-usm" />
             </a>
           </div>
           

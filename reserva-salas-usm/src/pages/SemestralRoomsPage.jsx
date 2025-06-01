@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './PageStyles.css'; 
 import '../components/RoleSelection.css'; 
 import './SemestralRoomsPage.css'; 
+import './ScheduleModal.css'; 
 
 
 const standardTimeSlots = [
@@ -32,22 +33,104 @@ const roomData = {
         capacity: 20 + i * 2,
         maintenanceIssues: i === 1 ? 'Proyector en mantención' : null,
         otherIssues: i === 4 ? 'No tiene calefacción' : null,
-        schedules: i === 0 ? [] : (i === 1 ? [{ start: 3, end: 4 }] :
-                (i === 2 ? [{ start: 5, end: 6 }, { start: 9, end: 10 }] : [])),
+        disponibilidadPorDia: {
+            'Lunes':
+                i === 0 ? [{ start: 1, end: 2 }] : 
+                i === 1 ? [{ start: 3, end: 4 }] : 
+                i === 2 ? [{ start: 5, end: 6 }] : 
+                [{ start: 7, end: 8 }, { start: 9, end: 10 }], 
+            'Martes': 
+                i === 0 ? [{ start: 9, end: 10 }] :
+                i === 1 ? [{ start: 1, end: 2 }] :
+                i === 2 ? [{ start: 5, end: 6 }, { start: 9, end: 10 }] : 
+                [{ start: 11, end: 12 }], 
+            'Miércoles':
+                i === 0 ? [{ start: 1, end: 2 }] : 
+                i === 1 ? [{ start: 11, end: 12 }] : 
+                i === 2 ? [{ start: 3, end: 4 }] : 
+                [{ start: 5, end: 6 }, { start: 7, end: 8 }], 
+            'Jueves':
+                i === 0 ? [{ start: 13, end: 14 }] : 
+                i === 1 ? [{ start: 5, end: 6 }] :
+                i === 2 ? [{ start: 7, end: 8 }] :
+                [{ start: 9, end: 10 }], 
+            'Viernes':
+                i === 0 ? [{ start: 7, end: 8 }] : 
+                i === 1 ? [{ start: 7, end: 8 }] : 
+                i === 2 ? [{ start: 1, end: 2 }] : 
+                [{ start: 3, end: 4 }, { start: 5, end: 6 }], 
+        },
     })),
     B: Array.from({ length: 12 }, (_, i) => ({ 
         id: `B${String(i + 1).padStart(3, '0')}`,  
         capacity: 30 + i * 3,
         maintenanceIssues: i === 0 ? 'Falla de audio' : null,
         otherIssues: null,
-        schedules: i === 0 ? [{ start: 7, end: 8 }] : [],
+        disponibilidadPorDia: {
+            'Lunes':
+                i === 0 ? [{ start: 7, end: 8 }] : 
+                i === 1 ? [{ start: 1, end: 2 }] : 
+                i === 2 ? [{ start: 3, end: 4 }] : 
+                [{ start: 5, end: 6 }, { start: 9, end: 10 }], 
+            'Martes':
+                i === 0 ? [{ start: 9, end: 10 }] :
+                i === 1 ? [{ start: 11, end: 12 }] :
+                i === 2 ? [{ start: 13, end: 14 }] :
+                [{ start: 1, end: 2 }],
+            'Miércoles':
+                i === 0 ? [{ start: 1, end: 2 }] :
+                i === 1 ? [{ start: 3, end: 4 }] :
+                i === 2 ? [{ start: 5, end: 6 }] :
+                [{ start: 7, end: 8 }, { start: 9, end: 10 }],
+            'Jueves':
+                i === 0 ? [{ start: 11, end: 12 }] :
+                i === 1 ? [{ start: 13, end: 14 }] :
+                i === 2 ? [{ start: 1, end: 2 }] :
+                [{ start: 3, end: 4 }],
+            'Viernes':
+                i === 0 ? [{ start: 5, end: 6 }] :
+                i === 1 ? [{ start: 7, end: 8 }] :
+                i === 2 ? [{ start: 9, end: 10 }] :
+                [{ start: 11, end: 12 }],
+        },
     })),
     E: Array.from({ length: 5 }, (_, i) => ({ 
         id: `E${String(i + 200).padStart(3, '0')}`, 
         capacity: 25 + i * 4,
         maintenanceIssues: null,
-        otherIssues: i === 7 ? 'Sillas rotas' : null,
-        schedules: i === 1 ? [{ start: 5, end: 7 }] : [],
+        otherIssues: i === 2 ? 'Sillas rotas' : null,
+        disponibilidadPorDia: {
+            'Lunes':
+                i === 0 ? [{ start: 1, end: 2 }] :
+                i === 1 ? [{ start: 3, end: 4 }] :
+                i === 2 ? [{ start: 5, end: 6 }] :
+                i === 3 ? [{ start: 7, end: 8 }] :
+                [{ start: 9, end: 10 }], 
+            'Martes':
+                i === 0 ? [{ start: 11, end: 12 }] :
+                i === 1 ? [{ start: 5, end: 7 }] : 
+                i === 2 ? [{ start: 13, end: 14 }] :
+                i === 3 ? [{ start: 1, end: 2 }] :
+                [{ start: 3, end: 4 }],
+            'Miércoles':
+                i === 0 ? [{ start: 5, end: 6 }] :
+                i === 1 ? [{ start: 7, end: 8 }] :
+                i === 2 ? [{ start: 9, end: 10 }] :
+                i === 3 ? [{ start: 11, end: 12 }] :
+                [{ start: 13, end: 14 }],
+            'Jueves':
+                i === 0 ? [{ start: 1, end: 2 }] :
+                i === 1 ? [{ start: 3, end: 4 }] :
+                i === 2 ? [{ start: 5, end: 6 }] :
+                i === 3 ? [{ start: 7, end: 8 }] :
+                [{ start: 9, end: 10 }],
+            'Viernes':
+                i === 0 ? [{ start: 11, end: 12 }] :
+                i === 1 ? [{ start: 13, end: 14 }] :
+                i === 2 ? [{ start: 1, end: 2 }] :
+                i === 3 ? [{ start: 3, end: 4 }] :
+                [{ start: 5, end: 6 }],
+        },
     })),
 
     K: k_room_ids.map((id, index) => ({
@@ -55,14 +138,66 @@ const roomData = {
         capacity: 25 + index * 2,
         maintenanceIssues: (id === 'K203' || id === 'K305') ? 'Falla de audio' : null,
         otherIssues: (id === 'K402') ? 'Filtración de agua' : null,
-        schedules: (id === 'K301') ? [{ start: 5, end: 6 }] : (id === 'K402') ? [{ start: 1, end: 2 }] : [],
+        disponibilidadPorDia: {
+            'Lunes':
+                (id === 'K301') ? [{ start: 5, end: 6 }] : 
+                (id === 'K201') ? [{ start: 1, end: 2 }] : 
+                (id === 'K300') ? [{ start: 3, end: 4 }] : 
+                [{ start: 7, end: 8 }, { start: 9, end: 10 }],
+            'Martes':
+                (id === 'K202') ? [{ start: 11, end: 12 }] :
+                (id === 'K302') ? [{ start: 13, end: 14 }] :
+                (id === 'K203') ? [{ start: 1, end: 2 }] :
+                [{ start: 3, end: 4 }],
+            'Miércoles':
+                (id === 'K402') ? [{ start: 1, end: 2 }] : 
+                (id === 'K204') ? [{ start: 5, end: 6 }] :
+                (id === 'K303') ? [{ start: 7, end: 8 }] :
+                [{ start: 9, end: 10 }, { start: 11, end: 12 }],
+            'Jueves':
+                (id === 'K205') ? [{ start: 13, end: 14 }] :
+                (id === 'K304') ? [{ start: 1, end: 2 }] :
+                (id === 'K206') ? [{ start: 3, end: 4 }] :
+                [{ start: 5, end: 6 }],
+            'Viernes':
+                (id === 'K305') ? [{ start: 7, end: 8 }] :
+                (id === 'K207') ? [{ start: 9, end: 10 }] :
+                (id === 'K306') ? [{ start: 11, end: 12 }] :
+                [{ start: 13, end: 14 }],
+        },
     })),
     F: Array.from({ length: 10 }, (_, i) => ({ 
         id: `F${String(i + 401).padStart(3, '0')}`,  
         capacity: 40 + i * 5,
         maintenanceIssues: i === 2 ? 'Proyector en mantención' : null,
         otherIssues: i === 3 ? 'Ventanas no cierran': null,
-        schedules: [],
+        disponibilidadPorDia: {
+            'Lunes':
+                i === 0 ? [{ start: 1, end: 2 }] :
+                i === 1 ? [{ start: 3, end: 4 }] :
+                i === 2 ? [{ start: 5, end: 6 }] :
+                [{ start: 7, end: 8 }, { start: 9, end: 10 }],
+            'Martes':
+                i === 0 ? [{ start: 11, end: 12 }] :
+                i === 1 ? [{ start: 13, end: 14 }] :
+                i === 2 ? [{ start: 1, end: 2 }] :
+                [{ start: 3, end: 4 }],
+            'Miércoles':
+                i === 0 ? [{ start: 5, end: 6 }] :
+                i === 1 ? [{ start: 7, end: 8 }] :
+                i === 2 ? [{ start: 9, end: 10 }] :
+                [{ start: 11, end: 12 }, { start: 13, end: 14 }],
+            'Jueves':
+                i === 0 ? [{ start: 1, end: 2 }] :
+                i === 1 ? [{ start: 3, end: 4 }] :
+                i === 2 ? [{ start: 5, end: 6 }] :
+                [{ start: 7, end: 8 }],
+            'Viernes':
+                i === 0 ? [{ start: 9, end: 10 }] :
+                i === 1 ? [{ start: 11, end: 12 }] :
+                i === 2 ? [{ start: 13, end: 14 }] :
+                [{ start: 1, end: 2 }, { start: 3, end: 4 }],
+        },
     })), 
 };
 
@@ -70,30 +205,34 @@ function SemestralRoomsPage() {
     const navigate = useNavigate();
     const [selectedBlock, setSelectedBlock] = useState(null); 
     const [selectedRoom, setSelectedRoom] = useState(null); 
-
+    const [selectedDay, setSelectedDay] = useState('Lunes');
+    
     const blocks = ['A', 'B', 'E', 'K', 'F'];
+    const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
 
     const handleRoomClick = (room) => {
         setSelectedRoom(room);
-        console.log(`Sala ${room.id} clickeada.`);
+        setSelectedDay('Lunes'); 
         
+        console.log(`Sala ${room.id} clickeada.`);
     };
 
     const closeRoomDetails = () => {
         setSelectedRoom(null);
     };
 
-    const handleRequestSlot = (room, timeSlot) => {
-        alert(`Solicitando sala ${room.id}, Bloque ${timeSlot.label}.`);    
+    const handleRequestSlot = (room, timeSlot, day) => {
+        alert(`Solicitando sala ${room.id}, Bloque ${timeSlot.label} para el día ${day}.`);    
     };
 
-    const isSlotOccupied = (roomSchedules, slotStart, slotEnd) => {
-        return roomSchedules.some(schedule => {
+    const isSlotOccupied = (roomSchedulesForDay, slotStart, slotEnd) => {
+        return roomSchedulesForDay.some(schedule => {
             const reservedStart = schedule.start;
             const reservedEnd = schedule.end;
             return slotStart < reservedEnd && reservedStart < slotEnd;
         });
     };
+
     return (
         <div className="page-container">
             <h2>Disponibilidad de Salas Semestrales</h2>
@@ -140,7 +279,7 @@ function SemestralRoomsPage() {
                                 )}
                                 <button
                                     className="view-schedule-button"
-                                    onClick={() => handleRoomClick(room)} 
+                                    onClick={(e) => { e.stopPropagation(); handleRoomClick(room); }} 
                                 >
                                     Ver Horarios
                                 </button>
@@ -167,8 +306,22 @@ function SemestralRoomsPage() {
                             </p>
                         )}
                         
+
+                        <div className="day-tabs">
+                            {daysOfWeek.map(day => (
+                                <button
+                                    key={day}
+                                    className={`day-tab-button ${selectedDay === day ? 'active' : ''}`}
+                                    onClick={() => setSelectedDay(day)}
+                                >
+                                    {day}
+                                </button>
+                            ))}
+                        </div>
+
+
                         <div className="schedules-table-container">
-                            <h4>Disponibilidad por Bloque:</h4>
+                            <h4>Disponibilidad para {selectedDay}:</h4>
                             <table className="schedules-table">
                                 <thead>
                                     <tr>
@@ -178,41 +331,48 @@ function SemestralRoomsPage() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {standardTimeSlots.map((slot, index) => {
-                                        const isOccupied = isSlotOccupied(selectedRoom.schedules, slot.start, slot.end);
-                                        return (
-                                            <tr key={index} className={isOccupied ? 'occupied-row' : 'available-row'}>
-                                                <td>{slot.label}</td>
-                                                <td>
-                                                    <span className={`status-text ${isOccupied ? 'occupied' : 'available'}`}>
-                                                        {isOccupied ? 'Ocupado' : 'Libre'}
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    {!isOccupied ? (
-                                                        <button
-                                                            className="request-slot-button"
-                                                            onClick={() => handleRequestSlot(selectedRoom, slot)}
-                                                        >
-                                                            Solicitar
-                                                        </button>
-                                                    ) : (
-                                                        <button className="view-details-button" disabled>Ver Detalles</button>
-                                                    )}
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
+                                    {selectedRoom.disponibilidadPorDia[selectedDay] && selectedRoom.disponibilidadPorDia[selectedDay].length > 0 ? (
+                                        standardTimeSlots.map((slot, index) => {
+                                            const roomSchedulesForCurrentDay = selectedRoom.disponibilidadPorDia[selectedDay];
+                                            const isOccupied = isSlotOccupied(roomSchedulesForCurrentDay, slot.start, slot.end);
+                                            return (
+                                                <tr key={index} className={isOccupied ? 'occupied-row' : 'available-row'}>
+                                                    <td>{slot.label}</td>
+                                                    <td>
+                                                        <span className={`status-text ${isOccupied ? 'occupied' : 'available'}`}>
+                                                            {isOccupied ? 'Ocupado' : 'Libre'}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        {!isOccupied ? (
+                                                            <button
+                                                                className="request-slot-button"
+                                                                onClick={() => handleRequestSlot(selectedRoom, selectedDay, slot)} 
+                                                            >
+                                                                Solicitar
+                                                            </button>
+                                                        ) : (
+                                                            <button className="view-details-button" disabled>Ver Detalles</button>
+                                                        )}
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })
+                                    ) : (
+                                        <tr>
+                                            <td colSpan="3" className="no-availability-message">No hay bloques registrados para el día {selectedDay}.</td>
+                                        </tr>
+                                    )}
                                 </tbody>
                             </table>
                         </div>
-                        <button className="close-button" onClick={closeRoomDetails}>Cerrar</button>
+                        <button className="close-button" onClick={closeRoomDetails}>Atras</button>
                     </div>
                 </div>
             )}
 
-            <button className="back-button" onClick={() => navigate(-1)}> 
-                Volver
+            <button className="main-back-button" onClick={() => navigate(-1)}> 
+                Atras
             </button>
         </div>
     );

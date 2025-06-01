@@ -1,5 +1,6 @@
 
 .page-container {
+    position: relative;
     padding: 30px;
     border-radius: 10px;
     background-color: white; 
