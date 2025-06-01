@@ -206,6 +206,7 @@ function SemestralRoomsPage() {
     const [selectedBlock, setSelectedBlock] = useState(null); 
     const [selectedRoom, setSelectedRoom] = useState(null); 
     const [selectedDay, setSelectedDay] = useState('Lunes');
+    const [showRequestSuccessModal, setShowRequestSuccessModal] = useState(false);
     
     const blocks = ['A', 'B', 'E', 'K', 'F'];
     const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
@@ -222,8 +223,9 @@ function SemestralRoomsPage() {
     };
 
     const handleRequestSlot = (room, timeSlot, day) => {
-        alert(`Solicitando sala ${room.id}, Bloque ${timeSlot.label} para el día ${day}.`);    
-    };
+        console.log(`Solicitando sala ${room.id}, Bloque ${timeSlot.label} para el día ${day}.`);
+        setShowRequestSuccessModal(true); 
+};
 
     const isSlotOccupied = (roomSchedulesForDay, slotStart, slotEnd) => {
         return roomSchedulesForDay.some(schedule => {
@@ -347,7 +349,7 @@ function SemestralRoomsPage() {
                                                         {!isOccupied ? (
                                                             <button
                                                                 className="request-slot-button"
-                                                                onClick={() => handleRequestSlot(selectedRoom, selectedDay, slot)} 
+                                                                onClick={() => handleRequestSlot(selectedRoom, slot, selectedDay)} 
                                                             >
                                                                 Solicitar
                                                             </button>
@@ -370,6 +372,20 @@ function SemestralRoomsPage() {
                     </div>
                 </div>
             )}
+            {showRequestSuccessModal && (
+            <div className="request-success-overlay">
+                <div className="request-success-content">
+                    <h3>¡Solicitud Enviada con Éxito!</h3>
+                    <p>Tu solicitud para la sala ha sido enviada. Te notificaremos sobre su estado.</p>
+                    <button
+                        className="close-success-modal-button"
+                        onClick={() => setShowRequestSuccessModal(false)} 
+                    >
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+        )}
 
             <button className="main-back-button" onClick={() => navigate(-1)}> 
                 Atras
