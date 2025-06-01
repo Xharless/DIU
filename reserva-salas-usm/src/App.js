@@ -6,7 +6,6 @@ import ProfesorPage from './pages/ProfesorPage';
 import AyudantePage from './pages/AyudantePage';
 import SemestralRoomsPage from './pages/SemestralRoomsPage';
 import TestRoomsPage from './pages/TestRoomsPage';
-import AvailableRooms from './pages/AvailableRooms';
 import './App.css'; 
 
 
@@ -33,7 +32,7 @@ function App() {
             <Route path="/assistant" element={<AyudantePage />} />
             <Route path="/professor/semestral-rooms" element={<SemestralRoomsPage />} />
             <Route path="/professor/test-rooms" element={<TestRoomsPage />} />
-            <Route path="/professor/test-rooms/availability" element={<AvailableRooms />} />
+            <Route path="/professor/test-rooms/availability" element={<SemestralRoomsPage />} />
             <Route path="/assistant/semestral-rooms" element={<SemestralRoomsPage />} />
           </Routes>
         </main>

@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './PageStyles.css'; 
 import '../components/RoleSelection.css'; 
 import './SemestralRoomsPage.css'; 
@@ -203,6 +203,19 @@ const roomData = {
 
 function SemestralRoomsPage() {
     const navigate = useNavigate();
+
+    //para ver la fecha en caso de elegir día de evaluación
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const selectedDate = queryParams.get('date');
+    const getLocalDateFromISO = (isoString) => {
+        const [year, month, day] = isoString.split('-').map(Number);
+        return new Date(year, month - 1, day);
+    };
+    const formattedDate = selectedDate
+        ? getLocalDateFromISO(selectedDate).toLocaleDateString('es-CL')
+        : '';
+
     const [selectedBlock, setSelectedBlock] = useState(null); 
     const [selectedRoom, setSelectedRoom] = useState(null); 
     const [selectedDay, setSelectedDay] = useState('Lunes');
@@ -253,8 +266,9 @@ function SemestralRoomsPage() {
 
     return (
         <div className="page-container">
-            <h2>Disponibilidad de Salas Semestrales</h2>
-
+            {selectedDate && (<h2>Salas disponibles para {formattedDate}</h2>)}
+            {!selectedDate && (<h2>Disponibilidad de Salas Semestrales</h2>)}
+            
             {/* Bloques de salas */}
             <p>Seleccione un edificio para ver sus salas:</p>
             <div className="block-selection-group">
@@ -325,7 +339,8 @@ function SemestralRoomsPage() {
                         )}
                         
 
-                        <div className="day-tabs">
+                        {!selectedDate && 
+                        (<div className="day-tabs">
                             {daysOfWeek.map(day => (
                                 <button
                                     key={day}
@@ -335,11 +350,11 @@ function SemestralRoomsPage() {
                                     {day}
                                 </button>
                             ))}
-                        </div>
+                        </div>)}
 
 
                         <div className="schedules-table-container">
-                            <h4>Disponibilidad para {selectedDay}:</h4>
+                            {!selectedDate && (<h4>Disponibilidad para {selectedDay}:</h4>)}
                             <table className="schedules-table">
                                 <thead>
                                     <tr>
