@@ -439,3 +439,105 @@
     color: white; 
     border-color: #004080; 
 }
+
+.maintenance-button {
+    background-color:#bdc91b; 
+    color: white;
+    border: none;
+    padding: 5px 10px; 
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600; 
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); 
+}
+.maintenance-button:hover {
+    background-color: #9fa815; 
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25); 
+}
+
+.maintenance-button:active {
+    background-color: #8a9211;
+    transform: translateY(0); 
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); 
+}
+
+.maintenance-button:disabled {
+    background-color: #cccccc; 
+    color: #888888; 
+    cursor: not-allowed;
+    box-shadow: none; 
+    transform: none; 
+    opacity: 0.7; 
+}
+
+.failure-button {
+    background-color:#c91b1b; 
+    color: white;
+    border: none;
+    padding: 5px 10px; 
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600; 
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); 
+}
+.failure-button:hover {
+    background-color: #a81515; 
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25); 
+}
+
+.failure-button:active {
+    background-color: #921111;
+    transform: translateY(0); 
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); 
+}
+
+.failure-button:disabled {
+    background-color: #cccccc; 
+    color: #888888; 
+    cursor: not-allowed;
+    box-shadow: none; 
+    transform: none; 
+    opacity: 0.7; 
+}
+
+.x-button {
+    background-color:#c91b1b; 
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 5px 10px; 
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600; 
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+.x-button:hover {
+    background-color: #a81515; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+    text-align: center; 
+}
+
+.x-button:active {
+    background-color: #921111;
+    transform: translateY(0); 
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); 
+    text-align: center;
+}
+
+.x:disabled {
+    background-color: #cccccc; 
+    color: #888888; 
+    cursor: not-allowed;
+    box-shadow: none; 
+    transform: none; 
+    opacity: 0.7; 
+    text-align: center;
+}
