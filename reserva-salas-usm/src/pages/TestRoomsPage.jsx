@@ -41,6 +41,7 @@ function TestRoomsPage(){
                         selected={selectedDate}
                         onChange={handleDateChange}
                         dateFormat="dd/MM/yyyy"
+                        placeholderText='dd/mm/yyyy'
                         minDate={new Date()} //no permitir fechas pasadas
                         filterDate={(date) => date.getDay() !== 0} //no permitir domingos
                         calendarStartDay={1}
