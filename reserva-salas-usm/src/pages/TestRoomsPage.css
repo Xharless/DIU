@@ -1,3 +1,178 @@
+/* Estilos para el campo de descripci\'on del problema en el modal */
+.room-details-content input[type="text"] {
+    width: calc(100% - 20px); /* Ajusta el ancho para dejar espacio para padding */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+    font-size: 1em;
+}
+
+/* Estilos para la nueva secci\'on de reportar problemas */
+.report-issue-section {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #eee; /* L\'inea divisoria */
+    text-align: center; /* Centra el contenido de esta secci\'on */
+}
+
+.report-issue-section h4 {
+    color: #003366;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+/* Contenedor para los botones de acci\'on de problemas */
+.issue-action-buttons {
+    display: flex;
+    justify-content: center; /* Centra los botones */
+    gap: 15px; /* Espacio entre los botones */
+    margin-top: 15px;
+}
+
+/* Estilos para los botones de Mantenci\'on y Falla */
+.maintenance-button,
+.failure-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.maintenance-button {
+    background-color: #ff9800; /* Naranjo para mantenci\'on */
+    color: white;
+}
+
+.maintenance-button:hover {
+    background-color: #e68a00;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+}
+
+.failure-button {
+    background-color: #f44336; /* Rojo para falla */
+    color: white;
+}
+
+.failure-button:hover {
+    background-color: #d32f2f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+}
+
+.maintenance-button:disabled,
+.failure-button:disabled {
+    background-color: #cccccc;
+    color: #888888;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+    opacity: 0.7;
+}
+
+/* --- Estilos para la nueva visualizaci\'on de horarios (reemplaza la tabla) --- */
+
+/* Contenedor principal de la secci\'on de horarios en el modal */
+.schedules-table-container { /* Reutilizamos esta clase que ya existía, pero ajustamos sus estilos */
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    text-align: center; /* Centra los elementos internos */
+}
+
+.schedules-table-container h4 {
+    color: #003366;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+/* Contenedor para los botones de d\'ia */
+.day-selection {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap; /* Para pantallas peque\~nas */
+}
+
+/* Estilos para los botones de d\'ia individuales */
+.day-button {
+    padding: 8px 15px;
+    border: 1px solid #003366;
+    background-color: transparent;
+    color: #003366;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+}
+
+.day-button:hover {
+    background-color: #e0e0e0;
+}
+
+.day-button.active {
+    background-color: #003366;
+    color: white;
+    font-weight: bold;
+}
+
+/* Cuadr\'icula para los bloques de tiempo */
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* 3-4 columnas, m\'as adaptable */
+    gap: 10px;
+    max-width: 500px; /* Limita el ancho de la cuadr\'icula de horarios */
+    margin: 0 auto; /* Centra la cuadr\'icula */
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+/* Estilos para cada bloque de tiempo individual */
+.time-slot {
+    padding: 15px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.time-slot.available {
+    background-color: #e6ffe6; /* Verde muy claro para disponible */
+    color: #28a745;
+    border: 1px solid #c3e6cb;
+}
+
+.time-slot.occupied {
+    background-color: #ffe6e6; /* Rojo muy claro para ocupado */
+    color: #dc3545;
+    border: 1px solid #f5c6cb;
+}
+
+/* Puedes a\~nadir un hover para los slots si son interactivos, aunque aqu\'i solo muestran estado */
+/* .time-slot:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+} */
+
+/* Aseg\'urate de que los estilos existentes de room-details-content sean correctos */
+.room-details-content {
+    /* ... Tus estilos existentes para el modal de detalles, ajusta seg\'un sea necesario */
+    max-width: 650px; /* Tal vez hazlo un poco m\'as ancho para que quepa todo mejor */
+    width: 90%;
+    /* ... */
+}
+
+/* Estilos para el DatePicker y sus elementos */
 .react-datepicker {
     transform: scale(1.2);
     transform-origin: top center;
@@ -43,7 +218,7 @@
     border-radius: 8px;
     border: 2px solid #003366;
     background-color: #003366;
-    color: white; 
+    color: white;
     cursor: pointer;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
