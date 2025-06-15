@@ -95,3 +95,402 @@
     margin-bottom: 10px;
 }
 
+/* --- Estilos para el Modal de Confirmaci\'on Personalizado --- */
+
+.custom-confirm-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente oscuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegura que est\'e por encima de otros elementos */
+    animation: fadeIn 0.2s ease-out; /* Animaci\'on suave al aparecer */
+}
+
+.custom-confirm-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25); /* Sombra m\'as pronunciada */
+    text-align: center;
+    max-width: 450px; /* Ancho m\'aximo del modal */
+    width: 90%; /* Ancho responsivo */
+    transform: translateY(-20px); /* Un ligero desplazamiento hacia arriba */
+    animation: slideInFromTop 0.3s ease-out forwards; /* Animaci\'on al aparecer */
+    border: 1px solid #ddd; /* Borde sutil */
+}
+
+.custom-confirm-content h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.8em; /* T\'itulo m\'as grande */
+    font-weight: 700;
+}
+
+.custom-confirm-content p {
+    color: #555;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    font-size: 1.1em;
+}
+
+.custom-confirm-content p strong {
+    color: #003366; /* Resalta el tipo de problema */
+}
+
+.confirm-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Espacio entre los botones */
+}
+
+.confirm-yes-button,
+.confirm-no-button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.05em;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.confirm-yes-button {
+    background-color: #dc3545; /* Rojo vibrante para confirmar */
+    color: white;
+}
+
+.confirm-yes-button:hover {
+    background-color: #c82333;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+.confirm-no-button {
+    background-color: #6c757d; /* Gris suave para cancelar */
+    color: white;
+}
+
+.confirm-no-button:hover {
+    background-color: #5a6268;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInFromTop {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-20px) scale(1);
+    }
+}
+
+
+/* --- Estilos para el campo de descripción del problema en el modal (ya estaban en tu c\'odigo) --- */
+.room-details-content input[type="text"] {
+    width: calc(100% - 20px); /* Ajusta el ancho para dejar espacio para padding */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+    font-size: 1em;
+}
+
+/* Estilos para la nueva sección de reportar problemas (ya estaban en tu c\'odigo) */
+.report-issue-section {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #eee; /* L\'inea divisoria */
+    text-align: center; /* Centra el contenido de esta sección */
+}
+
+.report-issue-section h4 {
+    color: #003366;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+/* Contenedor para los botones de acci\'on de problemas (ya estaban en tu c\'odigo) */
+.issue-action-buttons {
+    display: flex;
+    justify-content: center; /* Centra los botones */
+    gap: 15px; /* Espacio entre los botones */
+    margin-top: 15px;
+}
+
+/* Estilos para los botones de Mantenci\'on y Falla (ya estaban en tu c\'odigo) */
+.maintenance-button,
+.failure-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.maintenance-button {
+    background-color: #ff9800; /* Naranjo para mantenci\'on */
+    color: white;
+}
+
+.maintenance-button:hover {
+    background-color: #e68a00;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+}
+
+.failure-button {
+    background-color: #f44336; /* Rojo para falla */
+    color: white;
+}
+
+.failure-button:hover {
+    background-color: #d32f2f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+}
+
+.maintenance-button:disabled,
+.failure-button:disabled {
+    background-color: #cccccc;
+    color: #888888;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+    opacity: 0.7;
+}
+
+/* --- Estilos para la nueva visualizaci\'on de horarios (reemplaza la tabla) (ya estaban en tu c\'odigo) --- */
+
+/* Contenedor principal de la secci\'on de horarios en el modal */
+.schedules-table-container { 
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    text-align: center; 
+}
+
+.schedules-table-container h4 {
+    color: #003366;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+/* Contenedor para los botones de d\'ia (ya estaban en tu c\'odigo) */
+.day-selection {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap; 
+}
+
+/* Estilos para los botones de d\'ia individuales (ya estaban en tu c\'odigo) */
+.day-button {
+    padding: 8px 15px;
+    border: 1px solid #003366;
+    background-color: transparent;
+    color: #003366;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+}
+
+.day-button:hover {
+    background-color: #e0e0e0;
+}
+
+.day-button.active {
+    background-color: #003366;
+    color: white;
+    font-weight: bold;
+}
+
+/* Cuadr\'icula para los bloques de tiempo (ya estaban en tu c\'odigo) */
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); 
+    gap: 10px;
+    max-width: 500px; 
+    margin: 0 auto; 
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+/* Estilos para cada bloque de tiempo individual (ya estaban en tu c\'odigo) */
+.time-slot {
+    padding: 15px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.time-slot.available {
+    background-color: #e6ffe6; 
+    color: #28a745;
+    border: 1px solid #c3e6cb;
+}
+
+.time-slot.occupied {
+    background-color: #ffe6e6; 
+    color: #dc3545;
+    border: 1px solid #f5c6cb;
+}
+
+/* Aseg\'urate de que los estilos existentes de room-details-content sean correctos (ya estaban en tu c\'odigo) */
+.room-details-content {
+    max-width: 650px; 
+    width: 90%;
+}
+
+/* Estilos para la nueva secci\'on de problemas existentes (ya estaban en tu c\'odigo) */
+.existing-issues-section {
+    margin-top: 25px; 
+    padding-top: 15px; 
+    border-top: 1px solid #eee; 
+    text-align: center; 
+    margin-bottom: 20px; 
+}
+
+/* Estilos para el t\'itulo h4 dentro de la secci\'on de problemas existentes (ya estaban en tu c\'odigo) */
+.existing-issues-section h4 {
+    color: #003366; 
+    margin-bottom: 15px; 
+    font-size: 1.2em; 
+}
+
+/* Estilos para el mensaje cuando no hay problemas (ya estaban en tu c\'odigo) */
+.no-issues-message {
+    color: #555;
+    font-style: italic;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+/* Ajustes para los detalles de problemas existentes para un mejor espaciado y botones (ya estaban en tu c\'odigo) */
+.issue-detail {
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-bottom: 10px; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.issue-detail strong {
+    margin-right: 5px; 
+}
+
+/* Estilos para los botones "Eliminar" (x-button) (ya estaban en tu c\'odigo) */
+.x-button {
+    background-color: #dc3545; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-left: 15px; 
+}
+
+.x-button:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+/* Estilos para el DatePicker y sus elementos (ya estaban en tu c\'odigo) */
+.react-datepicker {
+    transform: scale(1.2);
+    transform-origin: top center;
+}
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+    width: 220px;
+}
+
+.react-datepicker__input-container input {
+    padding: 12px 16px;
+    font-size: 1.1em;
+    border: 2px solid #003366;
+    border-radius: 8px;
+    background-color: white;
+    color: #003366;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+
+.date-picker-container {
+    margin-top: 30px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+}
+
+.date-picker-container .datepicker-wrapper {
+    margin-bottom: 30px;
+}
+
+.set-button {
+    padding: 12px 25px;
+    font-size: 1em;
+    border-radius: 8px;
+    border: 2px solid #003366;
+    background-color: #003366;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    font-weight: bold;
+    text-align: center;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.notification-error {
+    background-color: #ffe0e0;
+    color: #cc0000;
+    border: 1px solid #cc0000;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}

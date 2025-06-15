@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import './PageStyles.css';
 import '../components/RoleSelection.css';
 import './SemestralRoomsPage.css';
-import './ScheduleModal.css';
+import './ScheduleModal.css'; // Asegúrate de que este CSS esté enlazado o añade el CSS a uno existente
 
 const standardTimeSlots = [
     { label: '1-2', start: 1, end: 2},
@@ -214,8 +214,11 @@ function AdminPage() {
     const [selectedRoom, setSelectedRoom] = useState(null);
     const [selectedDay, setSelectedDay] = useState('Lunes');
     const [showRequestSuccessModal, setShowRequestSuccessModal] = useState(false);
+    // NUEVOS ESTADOS PARA EL MODAL DE CONFIRMACIÓN
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [confirmActionType, setConfirmActionType] = useState(null); // 'maintenance' o 'other'
     const [allRoomData, setAllRoomData] = useState(roomData);
-    // Estado para el campo de descripci\'on del problema (se mantiene para reportar nuevos)
+    // Estado para el campo de descripción del problema (se mantiene para reportar nuevos)
     const [problemDescription, setProblemDescription] = useState('');
 
     const blocks = ['A', 'B', 'E', 'K', 'F'];
@@ -233,7 +236,7 @@ function AdminPage() {
         setProblemDescription(''); // Limpia el input al cerrar el modal
     };
 
-    // FUNCI\'ON UNIFICADA Y SEGURA PARA ACTUALIZAR PROBLEMAS (Reportar o Eliminar)
+    // FUNCIÓN UNIFICADA Y SEGURA PARA ACTUALIZAR PROBLEMAS (Reportar o Eliminar)
     const updateRoomIssue = (issueType, issueText) => {
         const newAllRoomData = { ...allRoomData };
         const buildingRooms = [...newAllRoomData[selectedBlock]];
@@ -244,13 +247,14 @@ function AdminPage() {
 
             if (issueType === 'maintenance') {
                 updatedRoom.maintenanceIssues = issueText;
-                // Si se reporta un problema de mantenci\'on, limpiar el otro tipo si existiera.
+                // Si se reporta un problema de mantención, limpiar el otro tipo si existiera.
+                // Esto asegura que una sala no tenga ambos tipos de problemas a la vez por la interfaz de reporte.
                 if (issueText && updatedRoom.otherIssues) {
                     updatedRoom.otherIssues = null;
                 }
             } else if (issueType === 'other') {
                 updatedRoom.otherIssues = issueText;
-                // Si se reporta un problema "otro", limpiar el de mantenci\'on si existiera.
+                // Si se reporta un problema "otro", limpiar el de mantención si existiera.
                 if (issueText && updatedRoom.maintenanceIssues) {
                     updatedRoom.maintenanceIssues = null;
                 }
@@ -263,31 +267,42 @@ function AdminPage() {
             // IMPORTANTE: actualiza selectedRoom para que el modal refleje los cambios inmediatamente
             setSelectedRoom(updatedRoom);
         }
-        setShowRequestSuccessModal(true);
-        // Limpia el input de descripci\'on solo si se estaba reportando un problema nuevo con texto
+        setShowRequestSuccessModal(true); // Muestra el modal de éxito.
+        // Limpia el input de descripción solo si se estaba reportando un problema nuevo con texto
         if (issueText) {
             setProblemDescription('');
         }
     };
     
-    // Funciones espec\'ificas para ELIMINAR problemas existentes
-    // Se colocan "arriba" como funciones dedicadas para mayor claridad.
-    const handleRemoveMaintenance = (e) => {
+    // Funciones específicas para ABRIR EL MODAL DE CONFIRMACIÓN
+    const handleRemoveMaintenanceClick = (e) => {
         e.stopPropagation(); // Evita que el clic se propague al card de la sala
-        const confirmacion = window.confirm('¿Estás seguro de que deseas quitar el problema de mantención?');
-        if (confirmacion) {
-            updateRoomIssue('maintenance', null);
-        }
+        setConfirmActionType('maintenance');
+        setShowConfirmModal(true);
     };
 
-    const handleRemoveOther = (e) => {
+    const handleRemoveOtherClick = (e) => {
         e.stopPropagation(); // Evita que el clic se propague al card de la sala
-        const confirmacion = window.confirm('¿Estás seguro de que deseas quitar el problema reportado?');
-        if (confirmacion) {
+        setConfirmActionType('other');
+        setShowConfirmModal(true);
+    };
+
+    // Lógica para CONFIRMAR la eliminación desde el modal
+    const confirmRemoval = () => {
+        if (confirmActionType === 'maintenance') {
+            updateRoomIssue('maintenance', null);
+        } else if (confirmActionType === 'other') {
             updateRoomIssue('other', null);
         }
+        setShowConfirmModal(false);
+        setConfirmActionType(null); // Restablecer el tipo de acción
     };
 
+    // Lógica para CANCELAR la eliminación desde el modal
+    const cancelRemoval = () => {
+        setShowConfirmModal(false);
+        setConfirmActionType(null); // Restablecer el tipo de acción
+    };
 
     const isSlotOccupied = (roomSchedulesForDay, slotStart, slotEnd) => {
         return roomSchedulesForDay.some(schedule => {
@@ -367,7 +382,7 @@ function AdminPage() {
                                         <span role="img" aria-label="wrench-emoji">🔧</span> <strong>En Mantención:</strong> {selectedRoom.maintenanceIssues}
                                         <button
                                             className='x-button'
-                                            onClick={handleRemoveMaintenance}
+                                            onClick={handleRemoveMaintenanceClick} 
                                         > Quitar
                                         </button>
                                     </p>
@@ -377,7 +392,7 @@ function AdminPage() {
                                         <span role="img" aria-label="warning-emoji">⚠️</span> <strong>Falla/Problema:</strong> {selectedRoom.otherIssues}
                                         <button
                                             className='x-button'
-                                            onClick={handleRemoveOther}
+                                            onClick={handleRemoveOtherClick}
                                         > Quitar
                                         </button>
                                     </p>
@@ -389,7 +404,7 @@ function AdminPage() {
                         )}
 
 
-                        {/* SECCI\'ON MEJORADA PARA REPORTAR/ACTUALIZAR PROBLEMAS */}
+                        {/* SECCIÓN MEJORADA PARA REPORTAR/ACTUALIZAR PROBLEMAS */}
                         <div className="report-issue-section">
                             <h4>Reportar o Actualizar Problema:</h4>
                             <input
@@ -420,6 +435,33 @@ function AdminPage() {
                     </div>
                 </div>
             )}
+
+            {/* MODAL DE CONFIRMACIÓN PERSONALIZADO */}
+            {showConfirmModal && (
+                <div className="custom-confirm-overlay">
+                    <div className="custom-confirm-content">
+                        <h2>¿Estás seguro?</h2>
+                        <p>
+                            Estás a punto de quitar este problema
+                        </p>
+                        <div className="confirm-buttons">
+                            <button 
+                                className="confirm-yes-button" 
+                                onClick={confirmRemoval}
+                            >
+                                Sí, quitar
+                            </button>
+                            <button 
+                                className="confirm-no-button" 
+                                onClick={cancelRemoval}
+                            >
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
 
             {showRequestSuccessModal && (
             <div className="request-success-overlay">
