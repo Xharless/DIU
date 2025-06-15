@@ -172,6 +172,68 @@
     /* ... */
 }
 
+/* Estilos para la nueva secci\'on de problemas existentes */
+.existing-issues-section {
+    margin-top: 25px; /* Espacio superior para separarlo de la capacidad */
+    padding-top: 15px; /* Padding interno superior */
+    border-top: 1px solid #eee; /* L\'inea divisoria, similar a la secci\'on de reportar */
+    text-align: center; /* Centra el t\'itulo y posiblemente el mensaje de "no issues" */
+    margin-bottom: 20px; /* Espacio inferior para separarlo de la siguiente secci\'on */
+}
+
+/* Estilos para el t\'itulo h4 dentro de la secci\'on de problemas existentes (para que se vea igual) */
+.existing-issues-section h4 {
+    color: #003366; /* Mismo color que el otro t\'itulo */
+    margin-bottom: 15px; /* Mismo margen inferior */
+    font-size: 1.2em; /* Mismo tama\~no de fuente */
+}
+
+/* Estilos para el mensaje cuando no hay problemas */
+.no-issues-message {
+    color: #555;
+    font-style: italic;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+/* Ajustes para los detalles de problemas existentes para un mejor espaciado y botones */
+.issue-detail {
+    display: flex; /* Permite alinear el texto y el bot\'on en la misma l\'inea */
+    align-items: center; /* Centra verticalmente los elementos */
+    justify-content: space-between; /* Empuja el bot\'on hacia la derecha */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-bottom: 10px; /* Espacio entre problemas */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.issue-detail strong {
+    margin-right: 5px; /* Espacio entre el t\'itulo del problema y la descripci\'on */
+}
+
+/* Estilos para los botones "Eliminar" (x-button) */
+.x-button {
+    background-color: #dc3545; /* Rojo para eliminar */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-left: 15px; /* Espacio a la izquierda del bot\'on */
+}
+
+.x-button:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
 /* Estilos para el DatePicker y sus elementos */
 .react-datepicker {
     transform: scale(1.2);
